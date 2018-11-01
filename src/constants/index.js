@@ -1,0 +1,4 @@
+const SUB_ACTIONS_TYPES = ['SUCCESS', 'ERROR', 'PENDING'];
+export {
+  SUB_ACTIONS_TYPES
+};
