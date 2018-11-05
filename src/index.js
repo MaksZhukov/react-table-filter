@@ -5,6 +5,7 @@ import './index.css';
 import AppContainer from './containers/App';
 import store from './store'
 import * as serviceWorker from './serviceWorker';
+import GridLayout from 'react-grid-layout';
 
 
 render(

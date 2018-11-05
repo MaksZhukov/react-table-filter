@@ -2,9 +2,7 @@ import {
   createAction
 } from 'redux-actions';
 import {
-  GET_TABLES,
-  GET_CELLS,
-  GET_COLUMNS
+  GET_TABLES
 } from './../actionTypes'
 
 export const addPanel = createAction('ADD_PANEL');
@@ -15,24 +13,31 @@ export const getTablesPending = createAction(GET_TABLES.PENDING);
 export const getTables = (id) => async dispatch => {
   try {
     dispatch(getTablesPending({
-      pending: true
+      id,
+      responseGetTables: {
+        pending: true
+      }
     }))
     const tables = await fetch('/data.json').then(response => response.json()).then(data => data)
     dispatch(getTablesSuccess({
       id,
-      tables,
-      pending: false
+      responseGetTables: {
+        pending: false,
+        status: 'success',
+        tables: tables,
+        message: 'Get tables was success'
+      }
     }))
   } catch (err) {
     dispatch(getTablesError({
-      err,
-      pending: false
+      id,
+      responseGetTables: {
+        pending: false,
+        status: 'error',
+        message: 'Get tables was error',
+      }
     }))
   }
 }
-export const getColumnsSuccess = createAction(GET_COLUMNS.SUCCESS);
-export const getColumnsError = createAction(GET_COLUMNS.ERROR);
-export const getColumnsPending = createAction(GET_COLUMNS.PENDING);
-export const getCellsSuccess = createAction(GET_CELLS.SUCCESS);
-export const getCellsError = createAction(GET_CELLS.ERROR);
-export const getCellsPending = createAction(GET_CELLS.PENDING);
+export const changeContexts = createAction('CHANGE_CONTEXTS');
+export const changeDimensions = createAction('CHANGE_DIMENSIONS');
