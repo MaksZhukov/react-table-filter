@@ -5,7 +5,6 @@ import App from '../components/App';
 import {
   addPanel,
   removePanel,
-  getTables,
 } from '../actions';
 import {
   panelsSelector
@@ -18,8 +17,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   addPanel: () => dispatch(addPanel()),
-  removePanel: (id) => dispatch(removePanel(id)),
-  getTables: (id) => dispatch(getTables(id)),
+  removePanel: () => dispatch(removePanel()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

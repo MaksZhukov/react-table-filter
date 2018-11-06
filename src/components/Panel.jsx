@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import GridLayout from 'react-grid-layout';
+import PropTypes from 'prop-types'
 import Draggable from 'react-draggable'
-import Filter from './Filter'
+import FilterContainer from '../containers/Filters'
 
 class Panel extends PureComponent {
   state = {
@@ -16,22 +16,26 @@ class Panel extends PureComponent {
   }
   render() {
     const { isOpenFilter } = this.state;
-    const { id, getTables, filters, changeContexts, changeDimensions, responseGetTables } = this.props
+    const { id } = this.props
     return (
       <>
         <div className="panel">
           <button className="btn btn-filter" onClick={this.toogleFilter}>filter</button>
-          {isOpenFilter ?
+          {isOpenFilter &&
             <Draggable
               onStart={this.startDragFilter}
             >
-              <div className="filters"><Filter filters={filters} id={id} getTables={getTables} changeDimensions={changeDimensions} changeContexts={changeContexts} responseGetTables={responseGetTables} /></div>
+              <div className="filters"><FilterContainer id={id} /></div>
             </Draggable>
-            : null}
+          }
         </div>
       </>
     );
   }
+}
+
+Panel.propTypes = {
+  id: PropTypes.number
 }
 
 export default Panel;

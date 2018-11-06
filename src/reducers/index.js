@@ -4,6 +4,7 @@ import {
 import {
   fromJS,
   List,
+  Map
 } from 'immutable'
 import {
   addPanel,
@@ -12,7 +13,8 @@ import {
   getTablesError,
   getTablesPending,
   changeContexts,
-  changeDimensions
+  changeDimensions,
+  changeCells
 } from '../actions';
 
 
@@ -27,16 +29,16 @@ const reducer = handleActions({
         filters: {
           defaultContexts: [],
           contexts: [],
+          defaultDimensions: [],
           dimensions: [],
+          defaultCells: [],
           cells: []
         },
         responseGetTables: {}
       }))
     },
-    [removePanel](state, {
-      payload
-    }) {
-      return state.set('panels', state.get('panels').filter(panel => panel.get('id') !== payload))
+    [removePanel](state) {
+      return state.set('panels', state.get('panels').filter(panel => panel.get('id') !== state.get('panels').size - 1))
     },
     [getTablesSuccess](state, {
       payload
@@ -81,7 +83,7 @@ const reducer = handleActions({
       } = payload
       const panels = state.get('panels').map(panel => {
         if (panel.get('id') === id) {
-          return panel.set('responseGetTables', responseGetTables)
+          return panel.set('responseGetTables', Map(responseGetTables))
         }
         return panel;
       })
@@ -96,7 +98,23 @@ const reducer = handleActions({
       } = payload
       const panels = state.get('panels').map(panel => {
         if (panel.get('id') === id) {
+          const tables = state.getIn(['panels', id, 'responseGetTables', 'tables'])
+          const dimensions = state.getIn(['panels', id, 'filters', 'dimensions'])
+          let newDefaultDimensions = [],
+            newDimensions = []
+          tables.forEach((table, key) => {
+            if (contexts.indexOf(key) !== -1) {
+              table.forEach((dimension, key) => {
+                if (dimensions.indexOf(key) !== -1) {
+                  newDimensions.push(key)
+                }
+                newDefaultDimensions.push(key)
+              })
+            }
+          })
           return panel.setIn(['filters', 'contexts'], List(contexts))
+            .setIn(['filters', 'defaultDimensions'], List(newDefaultDimensions))
+            .setIn(['filters', 'dimensions'], List(newDimensions))
         }
         return panel
       })
@@ -106,22 +124,35 @@ const reducer = handleActions({
       payload
     }) {
       const {
-        contexts,
+        dimensions,
         id
       } = payload
-      const tables = state.getIn(['panels', id, 'responseGetTables', 'tables'])
       const panels = state.get('panels').map(panel => {
         if (panel.get('id') === id) {
-          const contexts = panel.getIn(['filters', 'contexts'])
-          tables.map((table,key) => {
-            if (contexts.toJS().includes(key)){
-              console.log(table)
-            }
+          const tables = state.getIn(['panels', id, 'responseGetTables', 'tables'])
+          let defaultCells = []
+          tables.forEach((table, key) => {
+            table.forEach((dimension, key) => {
+              if (dimensions.indexOf(key) !== -1) {
+                defaultCells = [...defaultCells, ...dimension.toJS()]
+              }
+            })
           })
+          return panel.setIn(['filters', 'dimensions'], List(dimensions))
+            .setIn(['filters', 'defaultCells'], List(defaultCells))
         }
         return panel
       })
       return state.set('panels', panels)
+    },
+    [changeCells](state, {
+      payload
+    }) {
+      const {
+        cell,
+        id
+      } = payload
+      return state
     },
   },
   defaultState);
