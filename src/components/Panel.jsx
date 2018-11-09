@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types'
 import Draggable from 'react-draggable'
 import FilterContainer from '../containers/Filters'
+import Tables from '../containers/Tables'
 
 class Panel extends PureComponent {
   state = {
@@ -21,6 +22,7 @@ class Panel extends PureComponent {
       <>
         <div className="panel">
           <button className="btn btn-filter" onClick={this.toogleFilter}>filter</button>
+          <Tables id={id} />
           {isOpenFilter &&
             <Draggable
               onStart={this.startDragFilter}

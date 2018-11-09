@@ -6,7 +6,10 @@ import {
   getTables,
   changeContexts,
   changeDimensions,
-  changeCells
+  changeCells,
+  changeCellsAll,
+  inputSearch,
+  changeOrderCells
 } from '../actions'
 
 
@@ -39,6 +42,23 @@ const mapDispatchToProps = dispatch => ({
   }) => dispatch(changeCells({
     id,
     cell
+  })),
+  changeCellsAll: (id) => dispatch(changeCellsAll(id)),
+  inputSearch: ({
+    id,
+    value,
+    type
+  }) => dispatch(inputSearch({
+    id,
+    value,
+    type
+  })),
+  changeOrderCells: ({
+    id,
+    order
+  }) => dispatch(changeOrderCells({
+    id,
+    order
   }))
 });
 

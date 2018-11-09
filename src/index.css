@@ -56,12 +56,18 @@ code {
   max-height: 250px;
   overflow: auto;
 }
+.filters-search-type{
+  width: 70px;
+  display: inline-block;
+}
 .rc-checkbox{
   overflow: hidden;
 }
+.rw-widget-picker{
+  height: inherit;
+}
 
 .search-input {
-  height: 52px;
   position: relative;
 }
 

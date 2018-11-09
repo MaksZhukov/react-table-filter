@@ -42,3 +42,6 @@ export const getTables = (id) => async dispatch => {
 export const changeContexts = createAction('CHANGE_CONTEXTS');
 export const changeDimensions = createAction('CHANGE_DIMENSIONS');
 export const changeCells = createAction('CHANGE_CELLS');
+export const changeCellsAll = createAction('CHANGE_CELLS_ALL');
+export const inputSearch = createAction('INPUT_SEARCH');
+export const changeOrderCells = createAction('CHANGE_ORDER_CELLS');
