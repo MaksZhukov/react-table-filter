@@ -98,3 +98,17 @@ code {
 .search-input > input:focus {
   outline: none;
 }
+
+.tables{
+  overflow: auto;
+  height: 245px;
+}
+
+.table {
+  border: 1px solid green;
+  padding: 10px;
+  margin: 10px;
+}
+.table-caption{
+  background: rgba(0,0,0,.5);
+}

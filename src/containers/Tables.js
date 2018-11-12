@@ -14,7 +14,7 @@ const mapStateToProps = (state, {
     if (cells.filter(cell => cell.parents.context === table).length !== 0) {
       let selectedDimensions = [],
         selectedCells = [],
-        invertedSelectedCells = []
+        rows = []
       dimensions.forEach((dimension, keyDimension) => {
         if (cells.filter(cell => cell.parents.dimension === dimension && cell.parents.context === table).length !== 0) {
           selectedDimensions.push(dimension)
@@ -28,19 +28,29 @@ const mapStateToProps = (state, {
           maxLength = selectedCells[i].length
         }
       }
+      debugger
+      const test = Array(maxLength)
+      const res = selectedCells.map(dim=> {
+        const arr = Array(maxLength)
+        arr.unshift(...dim);
+        return arr;
+      })
+      test.unshift(...res)
+      console.log(test[0][1])
+      const empty = test[0][1] !== 'empty'
+
       for (let i = 0; i < maxLength; i++) {
-        invertedSelectedCells.push([])
-        for (let j = 0; j < selectedCells[i].length; j++) {
-          selectedCells[i, j].forEach(cell => {
-            invertedSelectedCells[i].push(cell)
-          })
+        rows.push([])
+      }
+      for (let i = 0; i < rows.length; i++) {
+        for (let j = 0; j < selectedCells.length; j++) {
+          rows[i].push(selectedCells[j][i])
         }
-        console.log(invertedSelectedCells)
       }
       tables.push({
         name: table,
         dimensions: selectedDimensions,
-        cells: invertedSelectedCells
+        rows
       })
     }
   });
