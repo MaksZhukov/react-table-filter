@@ -1,62 +1,42 @@
-import {
-  connect
-} from 'react-redux';
+import { connect } from 'react-redux';
 import Tables from '../components/Tables';
 
 const mapStateToProps = (state, {
-  id
+  id,
 }) => {
-  const cells = state.getIn(['panels', id, 'filters', 'cells']).filter(cell => cell.get('checked')).toJS()
-  const contexts = state.getIn(['panels', id, 'filters', 'contexts']).toJS()
-  const dimensions = state.getIn(['panels', id, 'filters', 'dimensions']).toJS()
-  let tables = []
-  contexts.forEach(table => {
+  const panel = state.get('panels').find(pan => pan.get('id') === id);
+  const cells = panel.getIn(['filters', 'cells']).filter(cell => cell.get('checked')).toJS();
+  const contexts = panel.getIn(['filters', 'contexts']).toJS();
+  const dimensions = panel.getIn(['filters', 'dimensions']).toJS();
+  const checkedAllCells = panel.getIn(['filters', 'checkedAllCells']);
+  const tables = [];
+  contexts.forEach((table) => {
     if (cells.filter(cell => cell.parents.context === table).length !== 0) {
-      let selectedDimensions = [],
-        selectedCells = [],
-        rows = []
-      dimensions.forEach((dimension, keyDimension) => {
-        if (cells.filter(cell => cell.parents.dimension === dimension && cell.parents.context === table).length !== 0) {
-          selectedDimensions.push(dimension)
-          selectedCells.push(cells.filter(cell => cell.parents.dimension === dimension && cell.parents.context === table))
+      const selectedDimensions = [];
+      const selectedCells = [];
+      dimensions.forEach((dimension) => {
+        const cellsInTheDim = cells.filter(c => c.parents.dimension === dimension
+          && c.parents.context === table);
+        if (cellsInTheDim.length !== 0) {
+          selectedDimensions.push(dimension);
+          selectedCells.push(cellsInTheDim);
         }
-        return null
-      })
-      let maxLength = 0
-      for (let i = 0; i < selectedCells.length; i++) {
-        if (maxLength < selectedCells[i].length) {
-          maxLength = selectedCells[i].length
-        }
-      }
-      debugger
-      const test = Array(maxLength)
-      const res = selectedCells.map(dim=> {
-        const arr = Array(maxLength)
-        arr.unshift(...dim);
-        return arr;
-      })
-      test.unshift(...res)
-      console.log(test[0][1])
-      const empty = test[0][1] !== 'empty'
-
-      for (let i = 0; i < maxLength; i++) {
-        rows.push([])
-      }
-      for (let i = 0; i < rows.length; i++) {
-        for (let j = 0; j < selectedCells.length; j++) {
-          rows[i].push(selectedCells[j][i])
-        }
-      }
+      });
+      const maxLength = Math.max(...selectedCells.map(cell => cell.length));
+      const rows = Array(maxLength).fill(null).map(() => []);
+      rows.forEach((row, keyRow) => {
+        selectedCells.forEach((cell, keyCell) => {
+          row.push(selectedCells[keyCell][keyRow]);
+        });
+      });
       tables.push({
         name: table,
         dimensions: selectedDimensions,
-        rows
-      })
+        rows,
+      });
     }
   });
-  return {
-    tables
-  }
+  return { tables, checkedAllCells };
 };
 
 export default connect(mapStateToProps)(Tables);

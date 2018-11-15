@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component Filters render component Filters without crashing 1`] = `
+<Fragment>
+  <div
+    className="filters-header"
+  >
+    Filters for №
+     
+    0
+  </div>
+  <div
+    className="filters-body"
+  >
+    CONTEXTS
+    <div
+      className="filters-context"
+    >
+      <Uncontrolled(Multiselect)
+        data={Array []}
+        onChange={[Function]}
+        value={Array []}
+      />
+    </div>
+    DIMENSIONS
+    <div
+      className="filters-dimensions"
+    >
+      <Uncontrolled(Multiselect)
+        data={Array []}
+        onChange={[Function]}
+        value={Array []}
+      />
+    </div>
+    SEARCH
+    <div
+      className="filters-search"
+    >
+      <Search
+        caseSensitive={false}
+        className="search-input"
+        fuzzy={false}
+        onChange={[Function]}
+        onInput={[Function]}
+        onMouseDown={[Function]}
+        throttle={200}
+        value=""
+      />
+      <div
+        className="filters-search-type"
+      >
+        <Uncontrolled(DropdownList)
+          data={
+            Array [
+              "**",
+              "*_",
+              "\\"\\"",
+            ]
+          }
+          defaultValue="**"
+          onChange={[Function]}
+        />
+      </div>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        A-Z
+      </button>
+    </div>
+    CELLS
+    <div
+      className="filters-cells"
+    />
+  </div>
+</Fragment>
+`;

@@ -1,6 +1,4 @@
-import {
-  createSelector
-} from 'reselect';
+import { createSelector } from 'reselect';
 
 const getPanels = state => state.get('panels');
 

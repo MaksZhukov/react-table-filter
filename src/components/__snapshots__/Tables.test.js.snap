@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component Tables render component Tables without crashing 1`] = `
+<div
+  className="tables"
+>
+  <table
+    className="table"
+    key="[object Object]"
+  >
+    <caption
+      className="table-caption"
+    >
+      table1
+    </caption>
+    <thead>
+      <tr>
+        <th
+          key="dim1"
+        >
+          dim1
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        key="0"
+      >
+        <td
+          key="0"
+        >
+          cell1
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

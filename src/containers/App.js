@@ -1,23 +1,10 @@
-import {
-  connect
-} from 'react-redux';
+import { connect } from 'react-redux';
 import App from '../components/App';
-import {
-  addPanel,
-  removePanel,
-} from '../actions';
-import {
-  panelsSelector
-} from '../selectors'
+import { addPanel } from '../actions';
+import { panelsSelector } from '../selectors';
 
+const mapStateToProps = state => ({ panels: panelsSelector(state) });
 
-const mapStateToProps = state => ({
-  panels: panelsSelector(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  addPanel: () => dispatch(addPanel()),
-  removePanel: () => dispatch(removePanel()),
-});
+const mapDispatchToProps = dispatch => ({ addPanel: () => dispatch(addPanel()) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

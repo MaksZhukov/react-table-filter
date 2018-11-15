@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component Panel render component Panel without crashing 1`] = `
+<Fragment>
+  <div
+    className="panel"
+  >
+    <button
+      className="btn btn-filter"
+      onClick={[Function]}
+      type="button"
+    >
+      filter
+    </button>
+    <button
+      className="btn"
+      onClick={[Function]}
+      type="button"
+    >
+      x
+    </button>
+    <span>
+      №
+       
+      0
+    </span>
+    <Connect(Tables)
+      id={0}
+    />
+  </div>
+</Fragment>
+`;

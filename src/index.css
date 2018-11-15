@@ -8,6 +8,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -47,10 +51,18 @@ code {
 }
 .filters {
   position: absolute;
-  top: 0;
-  right: 0;
-  background: rgba(139,69,19,.3);
+  width: 300px;
+  background: rgb(152, 144, 158);
   padding: 15px;
+}
+.filters.has-draggable{
+  z-index: 10;
+}
+#portal-filters{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 .filters-cells{
   max-height: 250px;
@@ -101,7 +113,7 @@ code {
 
 .tables{
   overflow: auto;
-  height: 245px;
+  height: 250px;
 }
 
 .table {
