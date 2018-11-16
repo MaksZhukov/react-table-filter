@@ -4,7 +4,7 @@ exports[`component App render component App without crashing 1`] = `
 <Fragment>
   <button
     className="btn"
-    onClick={[Function]}
+    onClick={[MockFunction]}
     type="button"
   >
     +
@@ -48,7 +48,7 @@ exports[`component App render component App without crashing and change props wi
 <Fragment>
   <button
     className="btn"
-    onClick={[Function]}
+    onClick={[MockFunction]}
     type="button"
   >
     +
@@ -92,7 +92,7 @@ exports[`component App render component App without crashing and change props wi
 <Fragment>
   <button
     className="btn"
-    onClick={[Function]}
+    onClick={[MockFunction]}
     type="button"
   >
     +

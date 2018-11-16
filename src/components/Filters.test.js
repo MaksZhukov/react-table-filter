@@ -26,14 +26,14 @@ describe('component Filters', () => {
     id: 0,
     filters,
     responseGetTables: Map({}),
-    getTables: () => {},
-    changeContexts: () => {},
-    changeDimensions: () => {},
-    changeCells: () => {},
-    changeCellsAll: () => {},
-    inputSearch: () => {},
-    changeSearchType: () => {},
-    changeOrderCells: () => {},
+    getTables: jest.fn(),
+    changeContexts: jest.fn(),
+    changeDimensions: jest.fn(),
+    changeCells: jest.fn(),
+    changeCellsAll: jest.fn(),
+    inputSearch: jest.fn(),
+    changeSearchType: jest.fn(),
+    changeOrderCells: jest.fn(),
   };
   it('render component Filters without crashing', () => {
     const wrapper = shallow(
@@ -58,7 +58,11 @@ describe('component Filters', () => {
     const expectData = { id: 5, value: 4 };
     let inputData = null;
     const wrapper = shallow(
-      <Filters {...{ ...props, ...{ id: 5, inputSearch: (data) => { inputData = data; } } }} />,
+      <Filters {...{
+        ...props,
+        ...{ id: 5, inputSearch: jest.fn((data) => { inputData = data; }) },
+      }}
+      />,
     );
     wrapper.find('Search').simulate('input', { target: { value: 4 } });
     expect(expectData).toEqual(inputData);

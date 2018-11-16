@@ -11,7 +11,7 @@ configure({ adapter: new Adapter() });
 describe('component App', () => {
   const props = {
     panels: List([]),
-    addPanel: () => {},
+    addPanel: jest.fn(),
   };
   it('render component App without crashing', () => {
     const wrapper = shallow(<App {...props} />);
@@ -49,5 +49,10 @@ describe('component App', () => {
   it('render component App has btn for add panels', () => {
     const wrapper = shallow(<App {...props} />);
     expect(wrapper.find('.btn').length).toBe(1);
+  });
+  it('render component App should call mock function when button is clicked', () => {
+    const wrapper = shallow(<App {...props} />);
+    wrapper.find('button').simulate('click');
+    expect(props.addPanel).toHaveBeenCalled();
   });
 });

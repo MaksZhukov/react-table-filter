@@ -9,7 +9,7 @@ export const getTablesPending = createAction(GET_TABLES.PENDING);
 export const getTables = id => async (dispatch) => {
   try {
     dispatch(getTablesPending({ id, responseGetTables: { pending: true } }));
-    const tables = await window.fetch('/data.json').then(response => response.json()).then(data => data);
+    const tables = await fetch('/data.json').then(response => response.json()).then(data => data);
     dispatch(getTablesSuccess({
       id,
       responseGetTables: {

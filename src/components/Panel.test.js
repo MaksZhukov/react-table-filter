@@ -11,9 +11,9 @@ describe('component Panel', () => {
     id: 0,
     x: 0,
     y: 0,
-    toggleFilters: () => {},
+    toggleFilters: jest.fn(),
     isOpenFilters: false,
-    removePanel: () => {},
+    removePanel: jest.fn(),
   };
   it('render component Panel without crashing', () => {
     const wrapper = shallow(<Panel {...props} />);
