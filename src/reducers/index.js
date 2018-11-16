@@ -123,7 +123,8 @@ const reducer = handleActions({
             if (dimensions.indexOf(keyDimension) !== -1) {
               dimension.forEach((cellValue) => {
                 if (cells.size !== 0) {
-                  const newCell = cells.find(cell => cell.get('value') === cellValue && cell.getIn(['parents', 'context']) === keyTable && cell.getIn(['parents', 'dimension']) === keyDimension);
+                  const newCell = cells.find(cell => cell.get('value') === cellValue
+                  && cell.getIn(['parents', 'context']) === keyTable && cell.getIn(['parents', 'dimension']) === keyDimension);
                   if (newCell) {
                     newCells.push(newCell);
                   } else {
@@ -174,10 +175,12 @@ const reducer = handleActions({
     const panels = state.get('panels').map((panel) => {
       if (panel.get('id') === id) {
         if (panel.getIn(['filters', 'checkedAllCells'])) {
-          return panel.updateIn(['filters', 'cells'], cells => cells.map(cell => (cell.get('visible') === true ? cell.set('checked', false) : cell)))
+          return panel.updateIn(['filters', 'cells'],
+            cells => cells.map(cell => (cell.get('visible') === true ? cell.set('checked', false) : cell)))
             .updateIn(['filters', 'checkedAllCells'], checked => !checked);
         }
-        return panel.updateIn(['filters', 'cells'], cells => cells.map(cell => (cell.get('visible') === true ? cell.set('checked', true) : cell)))
+        return panel.updateIn(['filters', 'cells'],
+          cells => cells.map(cell => (cell.get('visible') === true ? cell.set('checked', true) : cell)))
           .updateIn(['filters', 'checkedAllCells'], checked => !checked);
       }
       return panel;
@@ -190,15 +193,21 @@ const reducer = handleActions({
       if (panel.get('id') === id) {
         const type = panel.getIn(['filters', 'search', 'type']);
         if (type === TYPE_SEARCH.all) {
-          return panel.updateIn(['filters', 'cells'], cells => cells.map(cell => (cell.get('value').toLowerCase().indexOf(value.toLowerCase()) === -1 ? cell.set('visible', false) : cell.set('visible', true))))
+          return panel.updateIn(['filters', 'cells'],
+            cells => cells.map(cell => (cell.get('value').toLowerCase().indexOf(value.toLowerCase()) === -1
+              ? cell.set('visible', false) : cell.set('visible', true))))
             .updateIn(['filters', 'search', 'value'], () => value);
         }
         if (type === TYPE_SEARCH.exact) {
-          return panel.updateIn(['filters', 'cells'], cells => cells.map(cell => (value !== '' && cell.get('value').toLowerCase() !== value.toLowerCase() ? cell.set('visible', false) : cell.set('visible', true))))
+          return panel.updateIn(['filters', 'cells'],
+            cells => cells.map(cell => (value !== '' && cell.get('value').toLowerCase() !== value.toLowerCase()
+              ? cell.set('visible', false) : cell.set('visible', true))))
             .updateIn(['filters', 'search', 'value'], () => value);
         }
         if (type === TYPE_SEARCH.startWith) {
-          return panel.updateIn(['filters', 'cells'], cells => cells.map(cell => (cell.get('value').toLowerCase().indexOf(value.toLowerCase()) !== 0 ? cell.set('visible', false) : cell.set('visible', true))))
+          return panel.updateIn(['filters', 'cells'],
+            cells => cells.map(cell => (cell.get('value').toLowerCase().indexOf(value.toLowerCase()) !== 0
+              ? cell.set('visible', false) : cell.set('visible', true))))
             .updateIn(['filters', 'search', 'value'], () => value);
         }
       }

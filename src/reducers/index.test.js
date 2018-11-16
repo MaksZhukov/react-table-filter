@@ -48,7 +48,8 @@ describe('test reducers', () => {
         },
       },
     };
-    expect(reducer(state, getTablesSuccess(getTablesDefault)).get('panels').find((panel, key) => key === 0).getIn(['responseGetTables', 'tables']).size).toEqual(1);
+    expect(reducer(state, getTablesSuccess(getTablesDefault)).get('panels').find((panel, key) => key === 0)
+      .getIn(['responseGetTables', 'tables']).size).toEqual(1);
   });
 
   it('should return two actions PENDING and SUCCESS for getTables action with properly data', async () => {
