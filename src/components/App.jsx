@@ -1,36 +1,41 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import GridLayout from 'react-grid-layout';
 import PropTypes from 'prop-types';
-import { List } from 'immutable';
 import PanelContainer from '../containers/Panel';
 
-const App = ({ panels, addPanel }) => (
-  <>
-    <button type="button" className="btn" onClick={addPanel}>
-      +
-    </button>
-    <GridLayout className="panels" cols={4} rowHeight={300} width={1600}>
-      {panels.map((panel, key) => {
-        const y = Math.floor(key / 4);
-        const x = key % 4;
-        return (
+class App extends PureComponent {
+  handleGridLayoutChange = (positions) => {
+    const { changePositionPanels } = this.props;
+    changePositionPanels(positions);
+  }
+
+  render() {
+    const { panels, addPanel } = this.props;
+    return (
+    <>
+      <button type="button" className="btn" onClick={addPanel}>
+        +
+      </button>
+      <GridLayout className="panels" cols={4} rowHeight={300} width={1600} onLayoutChange={this.handleGridLayoutChange}>
+        {panels.map(panel => (
           <div
             key={panel.get('id')}
             data-grid={{
-              x, y, w: 1, h: 1,
+              x: panel.get('x'), y: panel.get('y'), w: 1, h: 1,
             }}
           >
-            <PanelContainer x={x} y={y} id={panel.get('id')} />
+            <PanelContainer x={panel.get('x')} y={panel.get('y')} id={panel.get('id')} />
           </div>
-        );
-      })}
-    </GridLayout>
-  </>
-);
+        ))}
+      </GridLayout>
+    </>);
+  }
+}
 
 App.propTypes = {
-  panels: PropTypes.instanceOf(List),
-  addPanel: PropTypes.func,
+  panels: PropTypes.objectOf(PropTypes.any).isRequired,
+  addPanel: PropTypes.func.isRequired,
+  changePositionPanels: PropTypes.func.isRequired,
 };
 
 export default App;

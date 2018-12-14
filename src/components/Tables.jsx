@@ -4,12 +4,12 @@ import 'rc-checkbox/assets/index.css';
 
 class Tables extends PureComponent {
   render() {
-    const { tables, checkedAllCells } = this.props;
+    const { tables, checkedAllCells, id } = this.props;
     return (
       <div className="tables">
         {tables.length >= 0 && !checkedAllCells
           && tables.map(table => (
-            <table key={table} className="table">
+            <table key={`panel-${id}-table-${table}`} className="table">
               <caption className="table-caption">
                 {table.name}
               </caption>
@@ -44,6 +44,7 @@ class Tables extends PureComponent {
 Tables.propTypes = {
   tables: PropTypes.instanceOf(Array).isRequired,
   checkedAllCells: PropTypes.bool.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default Tables;

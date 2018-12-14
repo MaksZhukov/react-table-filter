@@ -28,3 +28,4 @@ export const inputSearch = createAction('INPUT_SEARCH');
 export const changeSearchType = createAction('CHANGE_SEARCH_TYPE');
 export const changeOrderCells = createAction('CHANGE_ORDER_CELLS');
 export const toggleFilters = createAction('TOGGLE_FILTERS');
+export const changePositionPanels = createAction('CHANGE_POSITION_PANELS');

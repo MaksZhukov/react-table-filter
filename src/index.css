@@ -48,6 +48,7 @@ code {
   height: 300px;
   border: 1px solid red;
   position: relative;
+  z-index: 10000;
 }
 .filters {
   position: absolute;
@@ -123,4 +124,10 @@ code {
 }
 .table-caption{
   background: rgba(0,0,0,.5);
+}
+
+@media screen and (max-width: 600px) {
+  article {
+    display: flex;
+  }
 }

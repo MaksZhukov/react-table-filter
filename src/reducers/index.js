@@ -14,6 +14,7 @@ import {
   changeOrderCells,
   toggleFilters,
   changeSearchType,
+  changePositionPanels,
 } from '../actions';
 
 import {
@@ -27,8 +28,11 @@ const defaultState = fromJS(JSON.parse(localStorage.getItem('store'))) || fromJS
 });
 const reducer = handleActions({
   [addPanel](state) {
-    return state.update('panels', panels => panels.push(fromJS({
+    const panels = state.get('panels');
+    const newPanels = panels.push(fromJS({
       id: new Date().getTime(),
+      x: panels.size > 0 ? panels.size % 4 : 0,
+      y: panels.size > 0 ? Math.floor(panels.size / 4) : 0,
       isOpenFilters: false,
       filters: {
         defaultContexts: [],
@@ -44,7 +48,8 @@ const reducer = handleActions({
         },
       },
       responseGetTables: {},
-    })));
+    }));
+    return state.set('panels', newPanels);
   },
   [removePanel](state, { payload: id }) {
     return state.set('panels', state.get('panels').filter(panel => panel.get('id') !== id));
@@ -261,6 +266,15 @@ const reducer = handleActions({
     const panels = state.get('panels').map((panel) => {
       if (panel.get('id') === id) {
         return panel.update('isOpenFilters', isOpenFilters => !isOpenFilters);
+      }
+      return panel;
+    });
+    return state.set('panels', panels);
+  },
+  [changePositionPanels](state, { payload: positions }) {
+    const panels = state.get('panels').map((panel, key) => {
+      if (panel.get('x') !== positions[key].x || panel.get('y') !== positions[key].y) {
+        return panel.set('x', positions[key].x).set('y', positions[key].y);
       }
       return panel;
     });
