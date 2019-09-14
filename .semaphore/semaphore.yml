@@ -13,4 +13,4 @@ blocks:
           commands:
             - checkout
             - npm i
-            - npm build
+            - npm run build
