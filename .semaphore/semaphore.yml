@@ -11,4 +11,6 @@ blocks:
       jobs:
         - name: Tests
           commands:
+            - checkout
+            - npm i
             - npm run test
