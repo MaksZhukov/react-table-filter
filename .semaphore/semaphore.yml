@@ -5,24 +5,27 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Tests
+  - name: Depencies
     dependencies: []
     task:
       jobs:
-        - name: Tests
+        - name: Depencies
           commands:
             - checkout
             - npm i
-            - npm run build
-            - git status
+      epilogue:
+        on_pass:
+          commands:
+            - cache store
   - name: Deploy
     dependencies:
-      - Tests
+      - Depencies
     task:
       prologue:
         commands:
           - apt-get update -qy
           - apt-get install -y lftp
+          - cache restore
       jobs:
         - name: deploy
           commands:
