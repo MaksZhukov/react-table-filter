@@ -29,7 +29,7 @@ blocks:
             - ls -l
             - >-
               lftp -c "open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; set
-              ssl:verify-certificate no; mirror -R ./public ./semaphore"
+              ssl:verify-certificate no; mirror -R ./dist ./semaphore"
       env_vars:
         - name: FTP_USER
           value: mozprodez_improsoft
