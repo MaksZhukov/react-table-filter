@@ -24,9 +24,13 @@ blocks:
       jobs:
         - name: deploy
           commands:
+            - ls -l
+            - checkout
+            - ls -l
+            - cache restore
+            - ls -l
             - >-
-              ls -l - checkout - ls -l - cache restore - ls -l - >- lftp -c
-              "open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; set
+              lftp -c "open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; set
               ssl:verify-certificate no; mirror -R ./public ./semaphore"
       env_vars:
         - name: FTP_USER
