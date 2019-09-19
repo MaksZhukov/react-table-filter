@@ -25,8 +25,7 @@ blocks:
         commands:
           - apt-get update -qy
           - apt-get install -y lftp
-          - cache restore
       jobs:
         - name: deploy
           commands:
-            - lftp
+            - cache restore
