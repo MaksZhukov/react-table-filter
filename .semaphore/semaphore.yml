@@ -25,3 +25,13 @@ blocks:
         - name: deploy
           commands:
             - cache restore
+            - >-
+              lftp -c "open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; set
+              ssl:verify-certificate no; mirror -R ./ ./wp-content"
+      env_vars:
+        - name: FTP_USER
+          value: mozprodez_improsoft
+        - name: FTP_PASSWORD
+          value: Cv8QgwxRrtALuBE
+        - name: FTP_HOST
+          value: magic-health.su
