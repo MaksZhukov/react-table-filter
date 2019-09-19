@@ -44,7 +44,9 @@ blocks:
         - name: build
           commands:
             - checkout
-            - cash restore
             - npm run build
             - ls -l
             - cash store dist
+      prologue:
+        commands:
+          - cache restore
