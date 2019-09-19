@@ -9,7 +9,7 @@ blocks:
     dependencies: []
     task:
       jobs:
-        - name: Depencies
+        - name: depencies
           commands:
             - checkout
             - npm i
@@ -19,14 +19,12 @@ blocks:
             - cache store
   - name: Deploy
     dependencies:
+      - Build
       - Depencies
     task:
       jobs:
         - name: deploy
           commands:
-            - ls -l
-            - checkout
-            - ls -l
             - cache restore
             - ls -l
             - >-
@@ -39,3 +37,15 @@ blocks:
           value: Cv8QgwxRrtALuBE
         - name: FTP_HOST
           value: magic-health.su
+  - name: Build
+    dependencies:
+      - Depencies
+    task:
+      jobs:
+        - name: build
+          commands:
+            - checkout
+            - cash restore
+            - npm run build
+            - ls -l
+            - cash store dist
