@@ -20,7 +20,6 @@ blocks:
   - name: Deploy
     dependencies:
       - Build
-      - Depencies
     task:
       jobs:
         - name: deploy
