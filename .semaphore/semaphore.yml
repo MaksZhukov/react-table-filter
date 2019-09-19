@@ -24,10 +24,12 @@ blocks:
       jobs:
         - name: deploy
           commands:
+            - checkout
             - cache restore
+            - ls -l
             - >-
               lftp -c "open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; set
-              ssl:verify-certificate no; mirror -R ./ ./wp-content"
+              ssl:verify-certificate no; mirror -R ./ ./semaphore"
       env_vars:
         - name: FTP_USER
           value: mozprodez_improsoft
