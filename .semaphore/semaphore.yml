@@ -45,6 +45,7 @@ blocks:
         - name: build
           commands:
             - checkout
+            - npm i react-scripts -g
             - npm run build
             - cash store dist
       prologue:
