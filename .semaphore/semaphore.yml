@@ -15,3 +15,15 @@ blocks:
             - npm i
             - npm run build
             - git status
+  - name: Deploy
+    dependencies:
+      - Tests
+    task:
+      prologue:
+        commands:
+          - apt-get update -qy
+          - apt-get install -y lftp
+      jobs:
+        - name: deploy
+          commands:
+            - lftp
