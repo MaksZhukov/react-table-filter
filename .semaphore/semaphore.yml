@@ -21,10 +21,6 @@ blocks:
     dependencies:
       - Depencies
     task:
-      prologue:
-        commands:
-          - apt-get update -qy
-          - apt-get install -y lftp
       jobs:
         - name: deploy
           commands:
