@@ -24,8 +24,6 @@ blocks:
       jobs:
         - name: deploy
           commands:
-            - cache restore
-            - ls -l
             - >-
               lftp -c "open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; set
               ssl:verify-certificate no; mirror -R ./dist ./semaphore"
@@ -36,6 +34,9 @@ blocks:
           value: Cv8QgwxRrtALuBE
         - name: FTP_HOST
           value: magic-health.su
+      prologue:
+        commands:
+          - cache restore
   - name: Build
     dependencies:
       - Depencies
@@ -45,7 +46,6 @@ blocks:
           commands:
             - checkout
             - npm run build
-            - ls -l
             - cash store dist
       prologue:
         commands:
